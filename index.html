@@ -100,10 +100,7 @@
   <!-- Chat Panel -->
   <div class="chat-panel" id="chatPanel">
     <div class="chat-header">
-      <div class="chat-header-title">
-        <span class="dot"></span> Sunny &bull; AI Assistant
-      </div>
-      <button class="chat-settings-icon" id="chatSettingsBtn" title="Settings">⚙️</button>
+      <span class="dot"></span> Sunny &bull; Ask me anything
     </div>
 
     <!-- Messages Container -->
@@ -116,27 +113,6 @@
     <div class="chat-input-row">
       <input type="text" id="chatInput" placeholder="Ask me anything..." maxlength="1000">
       <button id="chatSend">Send</button>
-    </div>
-
-    <!-- Settings Modal -->
-    <div class="chat-settings-modal" id="chatSettingsModal">
-      <div class="modal-box">
-        <h3>⚙️ Chatbot Settings</h3>
-        <label for="apiKeyInput">Gemini API Key:</label>
-        <input type="password" id="apiKeyInput" placeholder="Paste Gemini API key here">
-        
-        <div class="checkbox-row">
-          <label>
-            <input type="checkbox" id="restrictedModeCheck">
-            <strong>Restricted Mode</strong> (Only answers college facts)
-          </label>
-        </div>
-
-        <div class="modal-actions">
-          <button id="saveSettingsBtn" class="btn-primary">Save</button>
-          <button id="closeSettingsBtn" class="btn-secondary">Close</button>
-        </div>
-      </div>
     </div>
   </div>
 

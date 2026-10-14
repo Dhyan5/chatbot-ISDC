@@ -4,7 +4,7 @@ const CONFIG = {
   GEMINI_API_KEY: "YOUR_GEMINI_API_KEY_HERE",
 
   // Gemini model to use
-  MODEL: "gemini-2.5-flash",
+  MODEL: "gemini-3.1-flash-lite",
 
   // WHAT-IF SCENARIO:
   // false = Unrestricted (Sunny answers ANY question: coding, science, general knowledge, etc.)

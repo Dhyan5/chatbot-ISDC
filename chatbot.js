@@ -11,21 +11,12 @@
   const typingIndicator = document.getElementById("typing");
   const inputField = document.getElementById("chatInput");
   const sendBtn = document.getElementById("chatSend");
-  const settingsBtn = document.getElementById("chatSettingsBtn");
-  const settingsModal = document.getElementById("chatSettingsModal");
-  const apiKeyInput = document.getElementById("apiKeyInput");
-  const restrictedCheckbox = document.getElementById("restrictedModeCheck");
-  const saveSettingsBtn = document.getElementById("saveSettingsBtn");
-  const closeSettingsBtn = document.getElementById("closeSettingsBtn");
-
-  // Get active API key and settings
+  // Get active API key and settings from config.js
   function getApiKey() {
-    return localStorage.getItem("GEMINI_API_KEY") || (typeof CONFIG !== "undefined" ? CONFIG.GEMINI_API_KEY : "");
+    return typeof CONFIG !== "undefined" ? CONFIG.GEMINI_API_KEY : "";
   }
 
   function isRestrictedMode() {
-    const saved = localStorage.getItem("RESTRICTED_MODE");
-    if (saved !== null) return saved === "true";
     return typeof CONFIG !== "undefined" ? Boolean(CONFIG.RESTRICTED_MODE) : false;
   }
 
@@ -74,31 +65,6 @@ GUIDELINES:
     if (isOpen) inputField.focus();
   });
 
-  // Settings modal
-  if (settingsBtn) {
-    settingsBtn.addEventListener("click", () => {
-      apiKeyInput.value = getApiKey();
-      restrictedCheckbox.checked = isRestrictedMode();
-      settingsModal.classList.add("active");
-    });
-  }
-
-  if (closeSettingsBtn) {
-    closeSettingsBtn.addEventListener("click", () => {
-      settingsModal.classList.remove("active");
-    });
-  }
-
-  if (saveSettingsBtn) {
-    saveSettingsBtn.addEventListener("click", () => {
-      const newKey = apiKeyInput.value.trim();
-      if (newKey) localStorage.setItem("GEMINI_API_KEY", newKey);
-      localStorage.setItem("RESTRICTED_MODE", restrictedCheckbox.checked ? "true" : "false");
-      settingsModal.classList.remove("active");
-      addMessage("Settings updated! " + (restrictedCheckbox.checked ? "(Mode: Restricted)" : "(Mode: Unrestricted)"), "bot");
-    });
-  }
-
   // Add message bubble
   function addMessage(text, type) {
     const msgDiv = document.createElement("div");
@@ -114,14 +80,10 @@ GUIDELINES:
     if (!text) return;
 
     const apiKey = getApiKey();
-    if (!apiKey || apiKey === "paste-your-key-here") {
+    if (!apiKey || apiKey === "paste-your-key-here" || apiKey === "YOUR_GEMINI_API_KEY_HERE") {
       addMessage(text, "user");
       inputField.value = "";
-      addMessage("⚠️ Please enter your Gemini API Key in ⚙️ Settings at the top right of this chat window to start chatting!", "err");
-      if (settingsModal) {
-        apiKeyInput.value = "";
-        settingsModal.classList.add("active");
-      }
+      addMessage("⚠️ Please add your Gemini API Key in config.js to start chatting!", "err");
       return;
     }
 
@@ -137,8 +99,9 @@ GUIDELINES:
       parts: [{ text: text }]
     });
 
-    const model = (typeof CONFIG !== "undefined" && CONFIG.MODEL) || "gemini-2.5-flash";
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+    const primaryModel = (typeof CONFIG !== "undefined" && CONFIG.MODEL) || "gemini-3.1-flash-lite";
+    const modelsToTry = [primaryModel, "gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-flash-latest"]
+      .filter((m, i, arr) => arr.indexOf(m) === i);
 
     const payload = {
       systemInstruction: {
@@ -148,20 +111,33 @@ GUIDELINES:
     };
 
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+      let data = null;
+      let lastError = null;
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        const errorMsg = data.error?.message || "Failed to reach Gemini API";
-        throw new Error(errorMsg);
+      for (const model of modelsToTry) {
+        try {
+          const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const resJson = await response.json();
+          if (response.ok && resJson.candidates?.[0]?.content?.parts?.[0]?.text) {
+            data = resJson;
+            break;
+          }
+          lastError = resJson.error?.message || `HTTP error ${response.status}`;
+        } catch (fetchErr) {
+          lastError = fetchErr.message;
+        }
       }
 
-      const botReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a reply.";
+      if (!data) {
+        throw new Error(lastError || "Failed to reach Gemini API");
+      }
+
+      const botReply = data.candidates[0].content.parts[0].text;
       
       // Add bot response to history
       history.push({
