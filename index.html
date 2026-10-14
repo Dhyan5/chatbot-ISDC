@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunrise Institute of Technology</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-flex">
+      <a href="#" class="logo">☀️ Sunrise Institute</a>
+      <ul class="nav-links">
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#admissions">Admissions</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="container">
+      <h1>Shape the Future with Technology</h1>
+      <p>Turn your passion for innovation into a career that matters.</p>
+      <a href="#admissions" class="btn">Apply Now</a>
+    </div>
+  </header>
+
+  <!-- Courses Section -->
+  <section class="section" id="courses">
+    <div class="container">
+      <h2>Our Courses</h2>
+      <p class="subtitle">4-year undergraduate programmes</p>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">💻</div>
+          <h3>Computer Science</h3>
+          <p>AI, Web Development, Cloud Computing</p>
+        </div>
+        <div class="card">
+          <div class="icon">🔌</div>
+          <h3>Electronics</h3>
+          <p>IoT, Embedded Systems</p>
+        </div>
+        <div class="card">
+          <div class="icon">⚙️</div>
+          <h3>Mechanical</h3>
+          <p>Robotics, Industrial Design</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admissions Section -->
+  <section class="section alt" id="admissions">
+    <div class="container">
+      <h2>Admissions</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">📅</div>
+          <h3>Opens March</h3>
+          <p>Every year</p>
+        </div>
+        <div class="card">
+          <div class="icon">📝</div>
+          <h3>Eligibility</h3>
+          <p>60%+ in 12th with Maths</p>
+        </div>
+        <div class="card">
+          <div class="icon">💰</div>
+          <h3>Fee</h3>
+          <p>₹80,000 / year</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container center">
+      <h2>Contact Us</h2>
+      <p>📧 admissions@sunrise.example</p>
+      <p>📞 +91 00000 00000</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Sunrise Institute of Technology. All rights reserved.</p>
+  </footer>
+
+  <!-- ================= CHATBOT WIDGET ================= -->
+
+  <!-- Floating Toggle Button -->
+  <button class="chat-btn" id="chatToggle" aria-label="Open chat">💬</button>
+
+  <!-- Chat Panel -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-header-title">
+        <span class="dot"></span> Sunny &bull; AI Assistant
+      </div>
+      <button class="chat-settings-icon" id="chatSettingsBtn" title="Settings">⚙️</button>
+    </div>
+
+    <!-- Messages Container -->
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg bot">Hi! I'm Sunny ☀️ Ask me anything about Sunrise Institute, coding, science, or general questions!</div>
+      <div class="typing" id="typing"><span></span><span></span><span></span></div>
+    </div>
+
+    <!-- Input Row -->
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="Ask me anything..." maxlength="1000">
+      <button id="chatSend">Send</button>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="chat-settings-modal" id="chatSettingsModal">
+      <div class="modal-box">
+        <h3>⚙️ Chatbot Settings</h3>
+        <label for="apiKeyInput">Gemini API Key:</label>
+        <input type="password" id="apiKeyInput" placeholder="Paste Gemini API key here">
+        
+        <div class="checkbox-row">
+          <label>
+            <input type="checkbox" id="restrictedModeCheck">
+            <strong>Restricted Mode</strong> (Only answers college facts)
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button id="saveSettingsBtn" class="btn-primary">Save</button>
+          <button id="closeSettingsBtn" class="btn-secondary">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts: config first, then chatbot logic -->
+  <script src="config.js"></script>
+  <script src="chatbot.js"></script>
+</body>
+</html>

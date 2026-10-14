@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunrise Institute of Technology</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-flex">
+      <a href="#" class="logo">☀️ Sunrise Institute</a>
+      <ul class="nav-links">
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#admissions">Admissions</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1>Shape the Future with Technology</h1>
+      <p>Turn your passion for innovation into a career that matters.</p>
+      <a href="#admissions" class="btn">Apply Now</a>
+    </div>
+  </header>
+
+  <section class="section" id="courses">
+    <div class="container">
+      <h2>Our Courses</h2>
+      <p class="subtitle">4-year undergraduate programmes</p>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">💻</div>
+          <h3>Computer Science</h3>
+          <p>AI, Web Development, Cloud Computing</p>
+        </div>
+        <div class="card">
+          <div class="icon">🔌</div>
+          <h3>Electronics</h3>
+          <p>IoT, Embedded Systems</p>
+        </div>
+        <div class="card">
+          <div class="icon">⚙️</div>
+          <h3>Mechanical</h3>
+          <p>Robotics, Industrial Design</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="admissions">
+    <div class="container">
+      <h2>Admissions</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">📅</div>
+          <h3>Opens March</h3>
+          <p>Every year</p>
+        </div>
+        <div class="card">
+          <div class="icon">📝</div>
+          <h3>Eligibility</h3>
+          <p>60%+ in 12th with Maths</p>
+        </div>
+        <div class="card">
+          <div class="icon">💰</div>
+          <h3>Fee</h3>
+          <p>₹80,000 / year</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container center">
+      <h2>Contact Us</h2>
+      <p>📧 admissions@sunrise.example</p>
+      <p>📞 +91 00000 00000</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 Sunrise Institute of Technology</p>
+  </footer>
+
+  <!-- ===== CHATBOT WIDGET ===== -->
+
+  <!-- Chat toggle button -->
+  <button class="chat-btn" id="chatToggle" aria-label="Open chat">💬</button>
+
+  <!-- Chat panel -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <span class="dot"></span> Sunny &bull; Ask me anything
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg bot">Hi! I'm Sunny ☀️ Ask me anything about Sunrise Institute.</div>
+      <div class="typing" id="typing"><span></span><span></span><span></span></div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="Type your question…" maxlength="1000">
+      <button id="chatSend">Send</button>
+    </div>
+  </div>
+
+  <script src="chatbot.js"></script>
+</body>
+
+</html>
